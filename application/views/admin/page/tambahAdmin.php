@@ -10,20 +10,27 @@
 		<div class="row">
 			<div class="col-12 col-md-12">
 				<div class="row">
-					<div class="col-12 col-md-6">
+					<div class="col-12 col-md-12">
 						<div class="form-group">
 							<input type="text" hidden name="id" value="<?php echo $this->session->userdata('panitia-id'); ?>">
 							<label class="form-control-label" for="namaP">Nama Admin</label>
 							<input type="text" class="form-control" id="namaP" name="nama">
-								<div class="invalid-feedback">Tolong isi nama Pengacara</div>
+								<div class="invalid-feedback">Tolong isi nama Pegawai</div>
 						</div>
 						<!-- <div class="form-group">
-							<label class="form-control-label" for="deskripsiSeleksi">Deskripsi Pengacara</label>
+							<label class="form-control-label" for="deskripsiSeleksi">Deskripsi Pegawai</label>
 							<textarea name="deskripsi" class="form-control" id="deskripsiSeleksi"></textarea>
 								<div class="invalid-feedback">Tolong isi deskripsi</div>
 						</div> -->
 					</div>
 					<input type="text" value="1" name="level" hidden>
+					<div class="col-12 col-md-6">
+						<div class="form-group">
+							<label class="form-control-label" for="nohp">Nomor Handphone/Telepon</label>
+							<input type="number" class="form-control" id="nohp" name="nohp"> </textarea>
+								<div class="invalid-feedback">Tolong isi no hp</div>
+						</div>
+					</div>
 					<div class="col-12 col-md-6">
 						<div class="form-group">
 							<label class="form-control-label" for="emailP">Email</label>
@@ -59,16 +66,6 @@
 <script type="text/javascript">
 	var go = false;
 
-	$('#foto').on('change',function(){
-    	var fileName = $(this).val();
-        $(this).next('.custom-file-label').html(fileName);
-    })
-
-    $('#logo').on('change',function(){
-    	var fileName = $(this).val();
-        $(this).next('.custom-file-label').html(fileName);
-    })
-
 	$('#username').on('change click keyup', function(event) {
     	var ur = $('#username').val()
     	$.ajax({
@@ -95,7 +92,7 @@
 		event.preventDefault(); 
 		if (go==true) {
 			$.ajax({
-				url: '<?php echo base_url('admin/prosestambahAdminDirekturPengacara') ?>',
+				url: '<?php echo base_url('admin/prosestambahAdminDirekturPegawai') ?>',
 				type: 'POST',
 				data:new FormData(this),
 	            processData:false,
@@ -107,7 +104,7 @@
 	            },
 	            success: function(data){
 	            	if (data==1) {
-	            	Swal.fire('Berhasil !!', 'Akun Pengacara berhasil ditambahkan !!', 'success')
+	            	Swal.fire('Berhasil !!', 'Akun Admin berhasil ditambahkan !!', 'success')
 	            	var delay = 1500; 
 					setTimeout(function(){ 
 						$('#loading').show();

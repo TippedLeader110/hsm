@@ -8,9 +8,9 @@ class Admin_model extends CI_Model {
         parent::__construct(); 
     }
 
-    public function tanggalSend($id_pengacara, $id_masalah)
+    public function tanggalSend($id_Pegawai, $id_masalah)
     {
-    	$rowP = $this->db->where('id', $id_pengacara)->get('a_users')->row();
+    	$rowP = $this->db->where('id', $id_Pegawai)->get('a_users')->row();
     	$rowM = $this->db->where('id_masalah', $id_masalah)->get('masalah')->row();
        	$mail = new PHPMailer();
             //Tell PHPMailer to use SMTP
@@ -43,7 +43,7 @@ class Admin_model extends CI_Model {
             $mail->addAddress($rowM->email);
             //Set the subject line
              $mail->isHTML(true);                                  // Set email format to HTML
-            $mail->Subject = 'Jadwal Jumpa dengan Pengacara';
+            $mail->Subject = 'Jadwal Jumpa dengan Pegawai';
             $mail->Body    = '
 			<div class="container" style="font-family:Arial, Helvetica, sans-serif; font-size:18px;">
 				<div class="row">
@@ -53,7 +53,7 @@ class Admin_model extends CI_Model {
 					">
 						<p>Kepada, <span class="user" style="font-weight: 500;">'.$rowM->nama.'</span>!</p>
 						<p>
-							Permintaan bantuan kasus <b>'.$rowM->deskripsi.'</b> telah diterima dan akan diproses. Silahkan menghubungi pengacara yang bersangkutan berdasarkan data dibawah untuk perekaman data lebih lanjut<br>
+							Permintaan bantuan kasus <b>'.$rowM->deskripsi.'</b> telah diterima dan akan diproses. Silahkan menghubungi Pegawai yang bersangkutan berdasarkan data dibawah untuk perekaman data lebih lanjut<br>
 						</p>
 						<table>
 							<tr>
@@ -169,16 +169,16 @@ class Admin_model extends CI_Model {
 		return $this->db->get('masalah')->result();
 	}
 
-	public function gantiStatuspengacara($id)
+	public function gantiStatusPegawai($id)
 	{
-		$stat = $this->db->where('id', $id)->get('a_users')->row()->status;
+		$stat = $this->db->where('id', $id)->get('pegawai')->row()->status;
 		if ($stat==1) {
 			$this->db->set('status', 0);
 		}
 		else{
 			$this->db->set('status', 1);	
 		}
-		if ($this->db->where('id', $id)->update('a_users')) {
+		if ($this->db->where('id', $id)->update('pegawai')) {
 			return TRUE;
 		}
 		else{
@@ -272,9 +272,16 @@ class Admin_model extends CI_Model {
 		return $ip;
 	}
 
-	public function tambahPengacara($data)
+	public function tambahPegawai($nama, $jenis_kelamin, $alamat, $nohp)
 	{
-		if ($this->db->insert('a_users', $data)) {
+		$data = array(
+			'nama' => $nama,
+			'jenis_kelamin' => $jenis_kelamin,
+			'alamat' => $alamat,
+			'nohp' => $nohp
+		);
+
+		if ($this->db->insert('pegawai', $data)) {
 			return TRUE;
 		}
 		else{
@@ -282,10 +289,10 @@ class Admin_model extends CI_Model {
 		}
 	}
 
-	public function editPengacara($data, $id_p)
+	public function editPegawai($data, $id_p)
 	{
 		$this->db->where('id', $id_p);
-		if ($this->db->update('a_users', $data)) {
+		if ($this->db->update('pegawai', $data)) {
 			return TRUE;
 		}
 		else{

@@ -18,7 +18,7 @@
                         <a href="#" id="laporanSingkat">Rangkuman</a>
                     </li>
                     <li>
-                		<a href="#" id="akunPage">Akun</a>
+                		<a href="#" id="kelolaAkun">Akun</a>
                 	</li>
                     <li>
                 		<a href="#" id="logAdmin">Log Admin</a>
@@ -35,7 +35,7 @@
                         <a href="#" id="daftarPegawai">Daftar Pegawai</a>
                     </li>
                     <li>
-                        <a href="#" id="kelolaPegawai">Tambah Pegawai</a>
+                        <a href="#" id="tambahPegawai">Tambah Pegawai</a>
                     </li>
                     <!-- <li>
                 		<a href="#" id="katPage">Kategori</a>

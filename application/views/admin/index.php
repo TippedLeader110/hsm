@@ -14,8 +14,17 @@
 
     <div id="content">
         <?php $this->load->view('template/navAdmin') ?>
+
+        
+
         <div id="loading" style="display: none;z-index: 4;position: absolute; top: 50%; left: 5%; height: 100%; width: 100%;">
-            <center><img src='<?php echo base_url('assets/file/load.gif') ?>'/></center>
+            <!-- <center><img src='<?php echo base_url('assets/file/load.gif') ?>'/></center> -->
+            <div class="d-flex justify-content-center">
+          <div class="spinner-border" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+        </div>
+
         </div>
         <div id="contentPage" class="shadow-sm p-3 mb-5 bg-white rounded " >
             
@@ -50,53 +59,21 @@
 
 	// LoadPageIndex('laporanSingkat');
 
-    $('#kelolaPengacara').click(function(event) {
+    $('#tambahPegawai').click(function(event) {
         event.preventDefault();
-        LoadPageIndex('tambahPengacara');
+        LoadPageIndex('tambahPegawai');
     });
 
-    $('#laporanSingkat').click(function(event) {
-        event.preventDefault();
-        LoadPageIndex('laporanSingkat');
-    });
-
-    $('#daftarPengacara').click(function(event) {
-        event.preventDefault();
-        LoadPageIndex('daftarPengacara');
-    });
-
-    $('#logAdmin').click(function(event) {
-        event.preventDefault();
-        LoadPageIndex('log_admin');
-    });
-    $('#akunPage').click(function(event) {
+    $('#kelolaAkun').click(function(event) {
         event.preventDefault();
         LoadPageIndex('kelolaAkun');
     });
 
-    $('#kelolaKasusADM').click(function(event) {
+    $('#daftarPegawai').click(function(event) {
         event.preventDefault();
-        LoadPageIndex('kelolaKasusADM');
+        LoadPageIndex('daftarPegawai');
     });
 
-    $('#daftarKasusADM').click(function(event) {
-        event.preventDefault();
-        LoadPageIndex('pilihMasalah');
-    });
-
-    $('#daftarKasusSaya').click(function(event) {
-        event.preventDefault();
-        LoadPageIndex('pilihMasalahSaya');
-    });
     
-    $('#passForgot').click(function(event) {
-        event.preventDefault();
-        LoadPageIndex('editPassword'); 
-    });
-
-    $('#riwayatTugas').click(function(event) {
-        event.preventDefault();
-        LoadPageIndex('daftarMasalah?tipe=all'); 
-    });
 </script>
 </html>

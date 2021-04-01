@@ -1,32 +1,37 @@
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-12">
-			<h5>Dashboard Admin | Kantor Advokat/Pengacara</h5>
+			<h5>Dashboard Admin</h5>
 			<hr>
-			<h6>Daftar Pengacara</h6>
+			<h6>Daftar Pegawai Tetap</h6>
 			<hr>
 		</div>
 	</div>
 	<div class="row" style="margin-top: 0px;">
 		<div class="col-12 col-md-12">
 			<div class="table-responsive">
-				<table class="table table-striped table-bordered" id="tablePengacara">
+				<table class="table table-striped table-bordered" id="tablePegawai">
 					<thead>
 						<th>#</th>
 						<th>Nama</th>
-						<th>Email</th>
-						<th>NoHP</th>
+						<th>Jenis Kelamin</th>
 						<th>Status</th>
 						<th></th>
 					</thead>
 					<tbody>
 						<?php $count = 1 ?>
-						<?php foreach ($daftarPengacara as $key => $value): ?>
+						<?php foreach ($daftarPegawai as $key => $value): ?>
 							<tr>
 								<td><?php echo $count; $count++; ?></td>
 								<td><?php echo $value->nama; ?></td>
-								<td><?php echo $value->email; ?></td>
-								<td><?php echo $value->nohp; ?></td>
+								<td>
+									<?php if ($value->jenis_kelamin==1): ?>
+										Pria
+									<?php endif ?>
+									<?php if ($value->jenis_kelamin!=1): ?>
+										Wanita
+									<?php endif ?>
+								</td>
 								<td>
 									<?php if ($value->status==1): ?>
 										Aktif
@@ -52,7 +57,7 @@
   	<div class="modal-dialog modal-lg" role="document">
     	<div class="modal-content">
       		<div class="modal-header">
-        		<h4 class="modal-title">Kelola Pengacara</h4>
+        		<h4 class="modal-title">Kelola Detail Pegawai</h4>
         		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
           			<span aria-hidden="true">&times;</span>
         		</button>
@@ -69,24 +74,14 @@
 
 <script type="text/javascript">
 	$(document).ready(function () {
-		$('#tablePengacara').DataTable();
+		$('#tablePegawai').DataTable();
 		$('.dataTables_length').addClass('bs-modal');
 	});
 
 	function kelola(id,status){
 		// console.log(stat);
-		$('.modal-body').load('<?php echo base_url('admin/modal_kelolaPengacara?id=') ?>' + id + '&status='+status);
+		$('.modal-body').load('<?php echo base_url('admin/modal_kelolaPegawai?id=') ?>' + id + '&status='+status);
 		$('#modalKelola').modal('show');
 	}
-
-	// $('#kelola').click(function(event) {
-	// 	event.preventDefault();
-	// 	var id = $(this).val();
-	// 	var stri = '#status'+id;
-	// 	var stat = $(stri).val();
-	// 	// console.log(stat);
-	// 	$('.modal-body').load('<?php echo base_url('admin/modal_kelolaPengacara?id=') ?>' + id + '&status='+stat);
-	// 	$('#modalKelola').modal('hide');
-	// });
 
 </script>
