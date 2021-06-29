@@ -7,6 +7,17 @@
 			<hr>
 		</div>
 	</div>
+	<div class="row" style="">
+		<div class="col-12 col-md-12">
+			<div class="card text-center" style="margin-bottom: 10px">
+				<div class="card-body">
+					<h5 class="card-title">Tambah kriteria baru</h5>
+				    <p class="card-text">Menambah kriteria beserta bobotnya untuk penilaian karyawan</p>
+				    <a href="#" class="btn btn-success" id="tambahKriteria"><i class="fas fa-plus"></i>&nbsp;Tambah</a>
+				 </div>
+			</div>
+		</div>
+	</div>
 	<div class="row" style="margin-top: 0px;">
 		<div class="col-12 col-md-12">
 			<div class="table-responsive">
@@ -14,37 +25,29 @@
 					<thead>
 						<th>#</th>
 						<th>ID</th>
-						<th>Nama</th>
-						<th>Jenis Kelamin</th>
-						<th>Status</th>
+						<th>Nama Kriteria</th>
+						<th>Bobot</th>
 						<th></th>
 					</thead>
 					<tbody>
 						<?php $count = 1 ?>
-						<?php foreach ($daftarPegawai as $key => $value): ?>
+						<?php foreach ($daftarKriteria as $key => $value): ?>
 							<tr>
 								<td><?php echo $count; $count++; ?></td>
-								<td>A<?php echo $value->id ?></td>
+								<td>C<?php echo $value->id ?></td>
 								<td><?php echo $value->nama; ?></td>
 								<td>
-									<?php if ($value->jenis_kelamin==1): ?>
-										Pria
+									<?php echo $value->bobot ?>
+									<?php if ($value->jenis==1): ?>
+										(Benefit)
 									<?php endif ?>
-									<?php if ($value->jenis_kelamin!=1): ?>
-										Wanita
-									<?php endif ?>
-								</td>
-								<td>
-									<?php if ($value->status==1): ?>
-										Aktif
-									<?php endif ?>
-									<?php if ($value->status!=1): ?>
-										Tidak Aktif
+									<?php if ($value->jenis!=1): ?>
+										(Cost)
 									<?php endif ?>
 								</td>
 								<td>
-									<input type="text" id="status<?php echo $value->id ?>" hidden value="<?php echo $value->status ?>">
-									<button class="btn btn-primary" id="kelola" onclick="kelola(<?php echo $value->id ?>, <?php echo $value->status ?>)">Kelola</button>		
+									
+									<button class="btn btn-primary" id="kelola" onclick="kelola(<?php echo $value->id ?>)">Ubah&Hapus</button>		
 								</td>
 							</tr>
 						<?php endforeach ?>
@@ -80,10 +83,32 @@
 		$('.dataTables_length').addClass('bs-modal');
 	});
 
-	function kelola(id,status){
+	function kelola(id){
 		// console.log(stat);
-		$('.modal-body').load('<?php echo base_url('admin/modal_kelolaPegawai?id=') ?>' + id + '&status='+status);
+		$('.modal-body').load('<?php echo base_url('admin/modal_kelolaKriteria?id=') ?>' + id);
 		$('#modalKelola').modal('show');
 	}
+
+	function loadTime(){
+        $('#loading').show();
+        $('#contentPage').addClass('lodtime',function() {
+            $('#loading').hide();
+            $('#contentPage').removeClass('lodtime');
+        });   
+    }
+
+	function loadPage(page){
+        loadTime();
+        $('#contentPage').load('<?php echo base_url('Admin/')?>' + page,function() {
+            $('#loading').hide();
+            $('#contentPage').removeClass('lodtime');
+        });
+    }
+
+	$('#tambahKriteria').click(function(event) {
+		event.preventDefault();
+
+		loadPage("tambahKriteria");
+	});
 
 </script>

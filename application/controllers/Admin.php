@@ -41,12 +41,46 @@ class Admin extends CI_Controller {
 		$this->load->view('admin/page/kelolaAkun', $data);	
 	}
 
+	public function kelolaBonus()
+	{
+		$this->loginProtocol();
+		$data['jpegawai'] = $this->Admin_model->hitungDB('pegawai');
+		$data['daftarBonus'] = $this->Admin_model->getDB('sesi_bonus');
+		$this->load->view('admin/page/kelolaBonus', $data);	
+	}
+
+	public function tambahBonus()
+	{
+		$this->loginProtocol();
+		$this->load->view('admin/page/tambahBonus');	
+	}
+
 
 	public function tambahPegawai()
 	{
 		$this->loginProtocol();
 		$this->load->view('admin/page/tambahPegawai');	
 	}
+
+	public function tambahKriteria()
+	{
+		$data['idBonus'] = $this->Admin_model->AktifBonus();
+		// echo $data['idBonus'];
+		$this->loginProtocol();
+		$this->load->view('admin/page/tambahKriteria', $data);	
+	}
+
+	public function daftarKriteria()
+	{
+		$this->loginProtocol();
+		if ($this->Admin_model->cekSBonus()) {
+			$idbonus = $this->Admin_model->AktifBonus();
+			$data['daftarKriteria'] = $this->Admin_model->getDBSearch('kriteria', 'id_sesi', $idbonus);
+			$this->load->view('admin/page/daftarKriteria', $data);
+		}else{
+			$this->load->view('admin/page/bonusNAktif');
+		}
+	}	
 
 
 	public function modal_kelolaPegawai()
@@ -130,6 +164,82 @@ class Admin extends CI_Controller {
 		$this->load->view('admin/page/tambahAkunPegawai');
 	}
 
+	public function editNilai(){
+		$dataJSON = $this->input->post('data');
+		
+		$id = $this->input->post('id_u');
+		$idb = $this->input->post('idb');
+		$dataBaru = json_decode(utf8_encode($dataJSON));
+
+		// var_dump($dataBaru);
+
+		if ($this->Admin_model->procNilai($dataBaru, $id, $idb)) {
+			echo "1";
+		}else{
+			echo "0";
+		}
+
+		// var_dump($dataJSON[0]);
+	}
+
+	public function nilaiBonus(){
+		$this->loginProtocol();
+		if ($this->Admin_model->cekSBonus()) {
+
+			$idBonus = $this->Admin_model->AktifBonus();
+			$rowNilai = $this->Admin_model->getDBSearch('kriteria', 'id_sesi', $idBonus);
+			$data['rowNilai'] = json_encode($rowNilai);
+			$data['namaSesi'] = $this->db->where('status', '1')->get('sesi_bonus')->row()->nama;
+
+			$data['DPegawai'] = json_encode($this->Admin_model->getDBSearch('bonus_pegawai', 'id_bonus', $idBonus));
+			$data['NPegawai'] = json_encode($this->Admin_model->getDB('pegawai'));
+			$data['idB'] = $idBonus;
+
+
+			$this->load->view('admin/page/bonusNilai', $data);
+		}else{
+			$this->load->view('admin/page/bonusNAktif');
+		}
+	}
+
+	// public function nilaiBonus(){
+	// 	$this->loginProtocol();
+	// 	if ($this->Admin_model->cekSBonus()) {
+
+	// 		$idbonus = $this->db->where('status', '1')->get('sesi_bonus')->row();
+	// 		$data ['daftarPegawai'] = $this->db->query('call daftarNilai('.$idbonus->id.')')->result();
+	// 		$data['row'] = $idbonus;
+	// 		$this->load->view('admin/page/bonusNilai', $data);
+	// 	}else{
+	// 		$this->load->view('admin/page/bonusNAktif');
+	// 	}
+	// }
+
+	public function bonusStatus(){
+		$id = $this->input->post('id');
+		$sts = $this->input->post('sts');
+
+		if ($sts==1) {
+			if ($this->Admin_model->disBonus()) {
+				if ($this->Admin_model->statusBonus($id, $sts)) {
+					echo "1";
+				}else{
+					echo "ganti status gagal";
+				}
+			}else{
+				echo "disBonus error";
+			}
+		}else{
+			if ($this->Admin_model->statusBonus($id, $sts)) {
+				echo "1";
+			}else{
+				echo "ganti status gagal";
+			}
+		}
+
+		// echo "ID : ".$id." \n STS : ".$sts;
+	}
+
 	public function cekUsername()
 	{
 		$this->loginProtocol();
@@ -144,6 +254,52 @@ class Admin extends CI_Controller {
 		}
 	}
 
+	public function prosestambahBonus()
+	{
+		$this->loginProtocol();
+		$nama = $this->input->post('nama');
+		$mulai = $this->input->post('mulai');
+		$akhir = $this->input->post('akhir');
+
+		$data = array(
+			'nama' => $nama,
+			'mulai' => $mulai,
+			'akhir' => $akhir
+		);
+
+
+        if ($this->Admin_model->tambahData($data, 'sesi_bonus')==TRUE) {
+			echo "1";
+		}
+		else{
+			echo "0";
+		}
+	}
+
+	public function prosestambahKriteria()
+	{
+		$this->loginProtocol();
+		$nama = $this->input->post('nama');
+		$bobot = $this->input->post('bobot');
+		$jenis = $this->input->post('jenis');
+		$idB = $this->input->post('idBonus');
+
+        $data = array(
+			'nama' => $nama,
+			'bobot' => $bobot,
+			'jenis' => $jenis,
+			'id_sesi' => $idB
+		);
+
+
+        if ($this->Admin_model->tambahData($data, 'kriteria')==TRUE) {
+			echo "1";
+		}
+		else{
+			echo "0";
+		}
+	}
+
 	public function prosestambahPegawai()
 	{
 		$this->loginProtocol();
@@ -152,7 +308,15 @@ class Admin extends CI_Controller {
 		$alamat = $this->input->post('alamat');
 		$nohp = $this->input->post('nohp');
 
-        if ($this->Admin_model->tambahPegawai($nama, $jenis_kelamin, $alamat, $nohp)==TRUE) {
+        $data = array(
+			'nama' => $nama,
+			'jenis_kelamin' => $jenis_kelamin,
+			'alamat' => $alamat,
+			'nohp' => $nohp
+		);
+
+
+        if ($this->Admin_model->tambahData($data, 'pegawai')==TRUE) {
 			echo "1";
 		}
 		else{
@@ -215,7 +379,7 @@ class Admin extends CI_Controller {
 		$dataBaru = array('level' => $level, 'nama' => $nama, 'username' => $username, 'email' => $email, 'password' => $password,
 			'nohp' => $nohp
 	);
-		if ($this->Admin_model->tambahAkun($dataBaru)==TRUE) {
+		if ($this->Admin_model->tambahData($dataBaru, 'a_users')==TRUE) {
 			echo "1";
 		}
 		else{

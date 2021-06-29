@@ -8,96 +8,6 @@ class Admin_model extends CI_Model {
         parent::__construct(); 
     }
 
-    public function tanggalSend($id_Pegawai, $id_masalah)
-    {
-    	$rowP = $this->db->where('id', $id_Pegawai)->get('a_users')->row();
-    	$rowM = $this->db->where('id_masalah', $id_masalah)->get('masalah')->row();
-       	$mail = new PHPMailer();
-            //Tell PHPMailer to use SMTP
-            $mail->isSMTP();
-            //Enable SMTP debugging
-            // SMTP::DEBUG_OFF = off (for production use)
-            // SMTP::DEBUG_CLIENT = client messages
-            // SMTP::DEBUG_SERVER = client and server messages
-            // $mail->SMTPDebug = SMTP::DEBUG_SERVER;
-            //Set the hostname of the mail server
-            $mail->Host = 'smtp.gmail.com';
-            // use
-            // $mail->Host = gethostbyname('smtp.gmail.com');
-            // if your network does not support SMTP over IPv6
-            //Set the SMTP port number - 587 for authenticated TLS, a.k.a. RFC4409 SMTP submission
-            $mail->Port = 587;
-            //Set the encryption mechanism to use - STARTTLS or SMTPS
-            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-            //Whether to use SMTP authentication
-            $mail->SMTPAuth = true;
-            //Username to use for SMTP authentication - use full email address for gmail
-            $mail->Username = 'itfestususend@gmail.com';
-            //Password to use for SMTP authentication
-            $mail->Password = 'pkkillbwkjrjtalj';
-            //Set who the message is to be sent from
-          	$mail->setFrom('donot-reply-itfestusu@gmail.com', 'Advokat');  
-            //Set an alternative reply-to address
-            $mail->addReplyTo('itfestusu@gmail.com');
-            //Set who the message is to be sent to
-            $mail->addAddress($rowM->email);
-            //Set the subject line
-             $mail->isHTML(true);                                  // Set email format to HTML
-            $mail->Subject = 'Jadwal Jumpa dengan Pegawai';
-            $mail->Body    = '
-			<div class="container" style="font-family:Arial, Helvetica, sans-serif; font-size:18px;">
-				<div class="row">
-					<div class="col align-self-center con border" style="margin-top: 25px;
-					margin-bottom: 25px;
-					padding: 20px 20px 20px 20px;
-					">
-						<p>Kepada, <span class="user" style="font-weight: 500;">'.$rowM->nama.'</span>!</p>
-						<p>
-							Permintaan bantuan kasus <b>'.$rowM->deskripsi.'</b> telah diterima dan akan diproses. Silahkan menghubungi Pegawai yang bersangkutan berdasarkan data dibawah untuk perekaman data lebih lanjut<br>
-						</p>
-						<table>
-							<tr>
-								<td>Nama</td><td>:</td><td>'.$rowP->nama.' </td>
-							</tr>
-							<tr>
-								<td>Email</td><td>:</td><td>'.$rowP->email.' </td>
-							</tr>
-							<tr>
-								<td>No.HP</td><td>:</td><td>'.$rowP->nohp.' </td>
-							</tr>
-						</table>
-						<p>
-						<center>Jadwal Pemohon</center>
-						<center>
-							<table border="1">
-								<tr>
-									<th>ID pemohon</th><th>Nama Pemohon</th><th>Tanggal Jumpa</th><th>Kasus</th>
-								</tr>
-								<tr>
-									<td>'.$id_masalah.'</td>
-									<td>'.$rowM->nama.'</td>
-									<td>'.$rowM->tanggal_jumpa.'</td>
-									<td>'.$rowM->deskripsi.'</td>
-								</tr>
-							</table>
-						</center>
-						<p>Jika ada keluhan anda dapat menghubungi cs : emailperusahaan@gmail.com</p>
-						<br>
-						<p>
-							Terima Kasih.
-						</p>
-						<br>
-					</div>
-				</div>
-			</div>
-			';
-            if (!$mail->send()) {
-                return false;
-                // echo 'Mailer Error: '. $mail->ErrorInfo;
-            } else {
-                return true;
-            }
-    }
 
 	public function doLogin($user_real, $password)
 	{
@@ -138,6 +48,34 @@ class Admin_model extends CI_Model {
 		return $this->db->get($db)->result();
 	}
 
+	public function procNilai($data, $id, $idb){
+		// echo "DD".$idb;
+		foreach ($data as $key => $value) {
+			$this->db->where('id_bonus', $idb);
+			$this->db->where('id_pegawai', $value->id_u);
+			$this->db->where('id_kriteria', $value->id_k);
+			$row = $this->db->get('bonus_pegawai')->num_rows();
+
+			// var_dump($row);
+
+			$dataINS = array('id_pegawai' => $value->id_u,
+					'id_bonus' => $idb,
+					'id_kriteria' => $value->id_k,
+					'nilai' => $value->nilai
+				 );
+
+			if ($row==0) {	
+				$this->db->insert('bonus_pegawai', $dataINS);
+			}else{
+				$this->db->where('id_bonus', $idb);
+				$this->db->where('id_pegawai', $id);
+				$this->db->where('id_kriteria', $value->id_k);
+				$this->db->update('bonus_pegawai', $dataINS);
+			}
+		}
+		return true;
+	}
+
 	public function dbDelete($db, $kolom, $cari)
 	{
 		$this->db->where($kolom, $cari);
@@ -149,25 +87,6 @@ class Admin_model extends CI_Model {
 		}
 	}
 
-	public function getMasalahSayaID($id)
-	{
-		$this->db->where('id_p', $this->session->userdata('id_u'));
-		$this->db->where('id_masalah', $id);
-		return $this->db->get('masalah')->result();
-	}
-
-	public function getMasalah34($tipe)
-	{
-		if ($tipe==1) {
-			$this->db->where("(status=3 or status=4)");
-		}
-		else{
-			$this->db->where('id_p', $this->session->userdata('id_u'));
-			$this->db->where('tanggal_jumpa IS NOT NULL', null, false);
-			$this->db->where("(status=3 or status=4)");
-		}
-		return $this->db->get('masalah')->result();
-	}
 
 	public function gantiStatusPegawai($id)
 	{
@@ -187,58 +106,13 @@ class Admin_model extends CI_Model {
 	}
 
 
-	public function gantiStatusKasus($id)
-	{
-		$this->db->where('id_masalah', $id);
-		$row = $this->db->get('masalah')->row();
-		if ($row->status==1) {
-			$this->db->set('status', 0);
-		}
-		elseif ($row->status==2) {
-			$this->db->set('status', 4);
-		}
-		elseif ($row->status==4) {
-			$this->db->set('status', 2);
-		}
-		else{
-			$this->db->set('status', 1);	
-		}
-		if ($this->db->update('masalah')) {
+	public function tambahData($data, $table){
+		if ($this->db->insert($table, $data)) {
 			return TRUE;
 		}
 		else{
 			return FALSE;
-		}
-	}
-
-	public function editKasus($data, $id)
-	{
-		$this->db->where('id_masalah', $id);
-		if ($this->db->update('masalah', $data)) {
-			return TRUE;
-		}
-		else{
-			return FALSE;
-		}
-	}
-
-	public function tambahBerkas($data, $id)
-	{
-		if ($this->db->insert('berkas', $data)) {
-			return TRUE;
-		}
-		else{
-			return FALSE;
-		}
-	}
-
-	public function tambahAkun($data){
-		if ($this->db->insert('a_users', $data)) {
-			return TRUE;
-		}
-		else{
-			return FALSE;
-		}
+		}	
 	}
 
 	public function logLoginAdmin($u){
@@ -272,21 +146,47 @@ class Admin_model extends CI_Model {
 		return $ip;
 	}
 
-	public function tambahPegawai($nama, $jenis_kelamin, $alamat, $nohp)
-	{
-		$data = array(
-			'nama' => $nama,
-			'jenis_kelamin' => $jenis_kelamin,
-			'alamat' => $alamat,
-			'nohp' => $nohp
-		);
+	public function AktifBonus(){
+		$this->db->where('status','1');
+		$d = $this->db->get('sesi_bonus')->row()->id;
 
-		if ($this->db->insert('pegawai', $data)) {
-			return TRUE;
+		return $d;
+	}
+
+	public function cekSBonus(){
+		$this->db->where('status','1');
+		$d = $this->db->get('sesi_bonus')->num_rows();
+
+		if ($d!=0) {
+			return true;
+		}else{
+			return false;
 		}
-		else{
+	}
+
+	public function disBonus(){
+		if ($this->db->set('status', 0)->update('sesi_bonus')) {
+			return TRUE;
+		}else{
 			return FALSE;
 		}
+	}
+
+	public function statusBonus($id, $sts){
+		if ($this->db->set('status', $sts)->where('id', $id)->update('sesi_bonus')) {
+			return TRUE;
+		}else{
+			return FALSE;
+		}
+	}
+
+	public function hitungDBSearch($db, $kolom, $cari){
+		$this->db->where($kolom, $cari);
+		return $this->db->get($db)->num_rows();
+	}
+
+	public function hitungDB($db){
+		return $this->db->get($db)->num_rows();
 	}
 
 	public function editPegawai($data, $id_p)
@@ -300,5 +200,45 @@ class Admin_model extends CI_Model {
 		}
 	}
 }
+
+// create or replace view log_admin_u as select b.id_log, b.ip, b.id_admin, b.waktu, b.status, a.nama, a.username, a.password, a.email, a.level from a_users as a inner join log_admin as b on b.id_admin = a.id
+
+//create or replace view daftar_nilai as select * from nilai_pegawai as b  where id_bonus <> 2 or id_bonus is null and not exists(select * from bonus_pegawai as c where c.id_pegawai = b.id_pegawai)
+
+// DELIMITER $$
+// CREATE OR REPLACE PROCEDURE daftarNilai(ID int(10))
+// BEGIN
+
+//     select * from nilai_pegawai as b  
+//     where id_bonus = ID
+//     or id_bonus is null 
+//     and not exists(select * from bonus_pegawai as c where c.id_pegawai = b.id_pegawai);
+
+// END$$
+
+// DELIMITER ;
+
+
+// DELIMITER $$
+// CREATE OR REPLACE PROCEDURE daftarNilai(ID int(10))
+// BEGIN
+
+// select * from nilai_pegawai as b  where id_bonus = ID or id_bonus is null and not exists(select * from bonus_pegawai as c where c.id_bonus = ID and c.id_pegawai = b.id_pegawai);
+
+// END$$
+
+// DELIMITER ;
+
+
+// DELIMITER $$
+// CREATE OR REPLACE PROCEDURE daftarNilaiH(ID int(10))
+// BEGIN
+
+// select COUNT(*) as count from nilai_pegawai as b  where id_bonus = ID or id_bonus is null and not exists(select * from bonus_pegawai as c where c.id_bonus = ID and c.id_pegawai = b.id_pegawai);
+
+// END$$
+
+// DELIMITER ;
+
 
 ?>

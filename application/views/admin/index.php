@@ -74,6 +74,21 @@
         LoadPageIndex('daftarPegawai');
     });
 
+    $('#kelolaBonus').click(function(event) {
+        event.preventDefault();
+        LoadPageIndex('kelolaBonus');
+    });
+
+    $('#nilaiBonus').click(function(event) {
+        event.preventDefault();
+        LoadPageIndex('nilaiBonus');
+    });
+
+    $('#daftarKriteria').click(function(event) {
+        event.preventDefault();
+        LoadPageIndex('daftarKriteria');
+    });
+
     
 </script>
 </html>

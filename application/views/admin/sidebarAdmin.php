@@ -28,18 +28,15 @@
             <li>
                 <a href="#postSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                     <i class="fas fa-user"></i>
-                    &nbsp;Pegawai
+                    &nbsp;Karyawan
                 </a>
                 <ul class="collapse list-unstyled" id="postSubmenu">
                     <li id="reportSingkatSide" class="bawah">
-                        <a href="#" id="daftarPegawai">Daftar Pegawai</a>
+                        <a href="#" id="daftarPegawai">Data Karyawan</a>
                     </li>
                     <li>
-                        <a href="#" id="tambahPegawai">Tambah Pegawai</a>
+                        <a href="#" id="tambahPegawai">Tambah Karyawan</a>
                     </li>
-                    <!-- <li>
-                		<a href="#" id="katPage">Kategori</a>
-                	</li> -->
                     <!-- <li>
                         <a href="#" id="reportTeam">Team</a>
                     </li>
@@ -50,15 +47,32 @@
             </li>
             <li>
                 <a href="#pagePesertamenu" data-toggle='collapse' aria-expanded="false" class="dropdown-toggle">
-                    <i class="far fa-file-alt"></i>
-                    &nbsp;Bonus Pegawai
+                    <i class="fas fa-user-edit"></i>
+                    &nbsp;Penilaian
                 </a>
                 <ul class="collapse list-unstyled" id="pagePesertamenu">
                 	<li>
-                     <a href="#" id="daftarKasusADM">Sesi Bonus</a>
+                     <a href="#" id="kelolaBonus">Sesi Penilaian</a>
                     </li>
                     <li>
-                     <a href="#" id="daftarKasusADM">Nilai Sesi Bonus</a>
+                        <a href="#" id="daftarKriteria">Kriteria</a>
+                    </li>
+                    <li>
+                     <a href="#" id="nilaiBonus">Nilai Sesi Bonus</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="#pagePesertamenu" data-toggle='collapse' aria-expanded="false" class="dropdown-toggle">
+                    <i class="far fa-file-alt"></i>
+                    &nbsp;Laporan
+                </a>
+                <ul class="collapse list-unstyled" id="pagePesertamenu">
+                    <li>
+                     <a href="#" id="kelolaBonus">Laporan Moora</a>
+                    </li>
+                    <li>
+                        <a href="#" id="daftarKriteria">Laporan Keputusan</a>
                     </li>
                 </ul>
             </li>
