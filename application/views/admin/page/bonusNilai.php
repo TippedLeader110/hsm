@@ -118,7 +118,7 @@
 				// console.log("iii :" + iii);
 				if (rowNilai[ii].id == pgwkey[iii]) {
 					// console.log(pgwkey[iii]);
-					st = st+ '<td><input class="nb'+pgw.id+'" type="number" id="'+pgwkey[iii]+'" disabled value="'+pgw[pgwkey[iii]]+'"></td>';
+					st = st+ '<td><input style="border-style:none;width:70px" class="chosen-disabled  nb'+pgw.id+'" type="number" id="'+pgwkey[iii]+'" disabled value="'+pgw[pgwkey[iii]]+'"></td>';
 					// console.log("BUAT");
 				}
 				// console.log("TDK");
@@ -153,6 +153,7 @@
 		var cls = '.nb' + id;
 		if ($(btn).html()=="Simpan") {
 			$(btn).html('Edit');
+			$(cls).addClass('chosen-disabled');
 			$(cls).attr('disabled', true);
 			var jsonSend = "[";
 			var sendArr = [];
@@ -221,6 +222,7 @@
 			
 		}else{
 			$(cls).attr('disabled', false);
+			$(cls).removeClass('chosen-disabled');
 			$(btn).html('Simpan');
 		}
 	}
