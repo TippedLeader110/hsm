@@ -31,6 +31,7 @@
             <div id="contentPage" class="shadow-sm p-3 mb-5 bg-white rounded ">
 
             </div>
+            <span style="color: transparent;">Created by ITC Team. Allrights Reserved</span>
         </div>
     </div>
 </body>
