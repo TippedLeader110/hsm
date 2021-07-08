@@ -34,6 +34,13 @@ class Admin extends CI_Controller {
 		
 	}
 
+	public function mainDashboard()
+	{
+		$this->loginProtocol();
+		$data['admin'] = $this->Admin_model->getDBSearch('a_users', 'level', '1');
+		$this->load->view('admin/page/main', $data);	
+	}
+
 	public function kelolaAkun()
 	{
 		$this->loginProtocol();
@@ -202,6 +209,47 @@ class Admin extends CI_Controller {
 		}
 	}
 
+	public function nilaiMoora(){
+		$this->loginProtocol();
+		if ($this->Admin_model->cekSBonus()) {
+
+			$idBonus = $this->Admin_model->AktifBonus();
+			$rowNilai = $this->Admin_model->getDBSearch('kriteria', 'id_sesi', $idBonus);
+			$data['rowNilai'] = json_encode($rowNilai);
+			$data['namaSesi'] = $this->db->where('status', '1')->get('sesi_bonus')->row()->nama;
+
+			$data['DPegawai'] = json_encode($this->Admin_model->getDBSearch('bonus_pegawai', 'id_bonus', $idBonus));
+			$data['NPegawai'] = json_encode($this->Admin_model->getDB('pegawai'));
+			$data['idB'] = $idBonus;
+
+
+			$this->load->view('admin/page/nilaiMoora', $data);
+		}else{
+			$this->load->view('admin/page/bonusNAktif');
+		}
+	}
+
+	public function nilaiTotal()
+	{
+		$this->loginProtocol();
+		if ($this->Admin_model->cekSBonus()) {
+
+			$idBonus = $this->Admin_model->AktifBonus();
+			$rowNilai = $this->Admin_model->getDBSearch('kriteria', 'id_sesi', $idBonus);
+			$data['rowNilai'] = json_encode($rowNilai);
+			$data['namaSesi'] = $this->db->where('status', '1')->get('sesi_bonus')->row()->nama;
+
+			$data['DPegawai'] = json_encode($this->Admin_model->getDBSearch('bonus_pegawai', 'id_bonus', $idBonus));
+			$data['NPegawai'] = json_encode($this->Admin_model->getDB('pegawai'));
+			$data['idB'] = $idBonus;
+
+
+			$this->load->view('admin/page/nilaiTotal', $data);
+		} else {
+			$this->load->view('admin/page/bonusNAktif');
+		}
+	}
+
 	// public function nilaiBonus(){
 	// 	$this->loginProtocol();
 	// 	if ($this->Admin_model->cekSBonus()) {
@@ -282,12 +330,14 @@ class Admin extends CI_Controller {
 		$nama = $this->input->post('nama');
 		$bobot = $this->input->post('bobot');
 		$jenis = $this->input->post('jenis');
+		$minmax = $this->input->post('minmax');
 		$idB = $this->input->post('idBonus');
 
         $data = array(
 			'nama' => $nama,
 			'bobot' => $bobot,
 			'jenis' => $jenis,
+			'minmax' => $minmax,
 			'id_sesi' => $idB
 		);
 

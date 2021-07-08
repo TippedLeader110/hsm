@@ -11,9 +11,20 @@
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 </head>
 <body>
+	<div class="pic-wrapper">
+	  <figure class="pic-1"></figure>
+	  <figure class="pic-2"></figure>
+	  <figure class="pic-3"></figure>
+	  <figure class="pic-4"></figure>
+	</div>
 	<div class="login">
 		<form class="fo">
-		<h2 class="head" >Login Dashboard Admin</h2>
+			<strong>
+            	<img height="50px" src="<?=base_url()?>assets/img/logo.png" alt="Yayasan Sekolah Namira">
+            </strong>
+		<center>
+		</center>
+		<h4 class="head"  style="padding-top: 50px">Login Dashboard</h4>
 		<span id="span" style="margin-top: 10px;display: none;"></span>
 		<input type="text" name="username" id="username" placeholder="Username" required="required" value="" class="input-box input-group">
 		<input type="password" name="password" id="password" placeholder="Password" required="required" value="" class="input-box input-group">
@@ -32,7 +43,7 @@
 		event.preventDefault();
 		Swal.fire({
 			text : 'Untuk mengubah password dapat menguhubungi admin yang bertanggung jawab.',
-			footer: 'Info lebih lanjut cs:adminadvokat_aliakbar@gmail.com',
+			footer: 'Info lebih lanjut cs:namiraschool@gmail.com',
 			icon: 'info'
 		})
 	});

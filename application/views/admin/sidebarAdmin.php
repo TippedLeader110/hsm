@@ -1,10 +1,9 @@
 <div class="sidebar-header">
-            <h3><center><img width="100px" src="<?=base_url()?>assets/images/logo.png" alt=""><br>
-            	<h4>Dashboard Admin</h4>
+            <h3 style="padding-top: 25px"><center>
+                <img width="200px" src="<?=base_url()?>assets/img/logo.png" alt="Yayasan Sekolah Namira">
+                <br>
+            	<h5 style="padding-top: 10px">Dashboard Admin</h5>
             </center></h3>
-            <!-- <strong>
-            	<img width="40px" src="<?=base_url()?>assets/images/logo.png" alt="ITFest 4.0">
-            </strong> -->
         </div>
 
         <ul class="list-unstyled">
@@ -15,7 +14,7 @@
                 </a>
                 <ul class="collapse list-unstyled" id="homeSubmenu">
                     <li id="reportSingkatSide" class="bawah">
-                        <a href="#" id="laporanSingkat">Rangkuman</a>
+                        <a href="#" id="homeMain">Home</a>
                     </li>
                     <li>
                 		<a href="#" id="kelolaAkun">Akun</a>
@@ -46,11 +45,11 @@
                 </ul>
             </li>
             <li>
-                <a href="#pagePesertamenu" data-toggle='collapse' aria-expanded="false" class="dropdown-toggle">
+                <a href="#pageNilai" data-toggle='collapse' aria-expanded="false" class="dropdown-toggle">
                     <i class="fas fa-user-edit"></i>
                     &nbsp;Penilaian
                 </a>
-                <ul class="collapse list-unstyled" id="pagePesertamenu">
+                <ul class="collapse list-unstyled" id="pageNilai">
                 	<li>
                      <a href="#" id="kelolaBonus">Sesi Penilaian</a>
                     </li>
@@ -63,16 +62,16 @@
                 </ul>
             </li>
             <li>
-                <a href="#pagePesertamenu" data-toggle='collapse' aria-expanded="false" class="dropdown-toggle">
+                <a href="#pageLaporan" data-toggle='collapse' aria-expanded="false" class="dropdown-toggle">
                     <i class="far fa-file-alt"></i>
                     &nbsp;Laporan
                 </a>
-                <ul class="collapse list-unstyled" id="pagePesertamenu">
+                <ul class="collapse list-unstyled" id="pageLaporan">
                     <li>
-                     <a href="#" id="kelolaBonus">Laporan Moora</a>
+                     <a href="#" id="nilaiMoora">Laporan Moora</a>
                     </li>
                     <li>
-                        <a href="#" id="daftarKriteria">Laporan Keputusan</a>
+                        <a href="#" id="keputusan">Laporan Keputusan</a>
                     </li>
                 </ul>
             </li>

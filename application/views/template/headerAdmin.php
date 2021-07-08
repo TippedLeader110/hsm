@@ -16,6 +16,7 @@
     <!-- <link rel="stylesheet" href="<?php echo base_url('/assets/css/mdb.min.css') ?>"> -->
     <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous"> -->
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url('/assets/css/dashboard.css') ?>">
+  <!-- <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/mainSlide.css'); ?>"> -->
     <script src="//cdn.ckeditor.com/4.13.0/standard/ckeditor.js"></script>
     <link rel="stylesheet" type="text/css" href="<?php echo base_url('/assets/css/admin.css') ?>">
 	<title><?php echo $title ?></title>
