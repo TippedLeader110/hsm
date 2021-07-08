@@ -1,6 +1,4 @@
-###################
-Human Resource Management
-###################
+## Human Resource Management
 
 Sistem hsm mini untuk pegawai sekolah (WIP)
 
