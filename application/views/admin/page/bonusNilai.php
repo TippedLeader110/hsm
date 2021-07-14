@@ -3,7 +3,7 @@
 		<div class="col-12">
 			<h5>Dashboard Admin</h5>
 			<hr>
-			<h6 id="titleTest">Penilaian bonus [<?php echo $namaSesi ?>]</h6>
+			<h6 id="titleTest">Penilaian kriteria [<?php echo $namaSesi ?>]</h6>
 			<hr>
 		</div>
 	</div>

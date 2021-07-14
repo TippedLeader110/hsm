@@ -57,7 +57,7 @@
                         <a href="#" id="daftarKriteria">Kriteria</a>
                     </li>
                     <li>
-                     <a href="#" id="nilaiBonus">Nilai Sesi Bonus</a>
+                     <a href="#" id="nilaiBonus">Nilai Sesi Kriteria</a>
                     </li>
                 </ul>
             </li>
