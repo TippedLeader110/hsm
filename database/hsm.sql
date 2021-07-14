@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 15, 2021 at 12:51 AM
+-- Generation Time: Jul 15, 2021 at 12:56 AM
 -- Server version: 10.4.13-MariaDB
 -- PHP Version: 7.4.8
 
@@ -79,7 +79,7 @@ INSERT INTO `a_users` (`id`, `nama`, `username`, `password`, `email`, `level`, `
 DROP TABLE IF EXISTS `bonus_karyawan`;
 CREATE TABLE `bonus_karyawan` (
   `id` int(11) NOT NULL,
-  `id_pegawai` int(11) NOT NULL,
+  `id_karyawan` int(11) NOT NULL,
   `id_kriteria` int(11) DEFAULT NULL,
   `nilai` int(11) DEFAULT NULL,
   `id_bonus` int(11) NOT NULL
@@ -89,7 +89,7 @@ CREATE TABLE `bonus_karyawan` (
 -- Dumping data for table `bonus_karyawan`
 --
 
-INSERT INTO `bonus_karyawan` (`id`, `id_pegawai`, `id_kriteria`, `nilai`, `id_bonus`) VALUES
+INSERT INTO `bonus_karyawan` (`id`, `id_karyawan`, `id_kriteria`, `nilai`, `id_bonus`) VALUES
 (7, 1, 1, 4, 1),
 (8, 1, 2, 5, 1),
 (9, 5, 1, 3, 1),
@@ -350,7 +350,7 @@ ALTER TABLE `a_users`
 --
 ALTER TABLE `bonus_karyawan`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `id_pegawai` (`id_pegawai`),
+  ADD KEY `id_pegawai` (`id_karyawan`),
   ADD KEY `id_bonus` (`id_kriteria`);
 
 --
