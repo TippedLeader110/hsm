@@ -2,7 +2,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-12 col-md-12">
-				<h5>Tambah pegawai baru ke sistem</h5>
+				<h5>Tambah karyawan baru ke sistem</h5>
 				<hr>
 			</div>
 		</div>
@@ -46,7 +46,7 @@
 				</div>
 				<div class="row">
 					<div class="col-12 col-md-12" style="margin-top: 20px;">
-					<button class="btn btn-outline-success">Tambah Pegawai Baru
+					<button class="btn btn-outline-success">Tambah Karyawan Baru
 				</div>
 				</div>
 			</div>
@@ -61,7 +61,7 @@
 	$('#form').submit(function(event) {
 		event.preventDefault(); 
 		$.ajax({
-			url: '<?php echo base_url('admin/prosestambahPegawai') ?>',
+			url: '<?php echo base_url('admin/prosestambahKaryawan') ?>',
 			type: 'POST',
 			data:new FormData(this),
             processData:false,
@@ -73,12 +73,12 @@
             },
             success: function(data){
             	if (data==1) {
-            	Swal.fire('Berhasil !!', 'Pegawai berhasil ditambahkan !!', 'success')
+            	Swal.fire('Berhasil !!', 'Karyawan berhasil ditambahkan !!', 'success')
             	var delay = 1500; 
 				setTimeout(function(){ 
 					$('#loading').show();
 					$('#contentPage').addClass('lodtime');
-					$('#contentPage').load('<?php echo base_url('admin/daftarPegawai') ?>', function(){
+					$('#contentPage').load('<?php echo base_url('admin/daftarKaryawan') ?>', function(){
 						$('#loading').hide();
 						$('#contentPage').removeClass('lodtime');
 					})}, delay);
@@ -93,7 +93,7 @@
 		event.preventDefault();
 		$('#loading').show();
 		$('#contentPage').addClass('lodtime');
-		$('#contentPage').load('<?php echo base_url('admin/kelolaPegawai') ?>', function(){
+		$('#contentPage').load('<?php echo base_url('admin/kelolaKaryawan') ?>', function(){
 			$('#loading').hide();
 			$('#contentPage').removeClass('lodtime');
 		});

@@ -5,7 +5,7 @@
 			<div class="col-12 col-md-12">
 				<div class="row">
 					<div class="col-6 col-md-12">
-						<?php foreach ($dataPegawai as $key => $value): ?>
+						<?php foreach ($dataKaryawan as $key => $value): ?>
 						<?php endforeach ?>
 						<div class="form-group">
 							<input type="text" hidden name="id_p" value="<?php echo $value->id ?>">
@@ -61,7 +61,7 @@
 	$('#form').submit(function(event) {
 		event.preventDefault(); 
 		$.ajax({
-			url: '<?php echo base_url('admin/proseseditPegawai') ?>',
+			url: '<?php echo base_url('admin/proseseditKaryawan') ?>',
 			type: 'POST',
 			data:new FormData(this),
             processData:false,
@@ -78,7 +78,7 @@
 				setTimeout(function(){ 
 					$('#loading').show();
 					$('#contentPage').addClass('lodtime');
-					$('#contentPage').load('<?php echo base_url('admin/daftarPegawai') ?>', function(){
+					$('#contentPage').load('<?php echo base_url('admin/daftarKaryawan') ?>', function(){
 						$('#loading').hide();
 						$('#contentPage').removeClass('lodtime');
 						$('.modal-backdrop').remove();
@@ -95,7 +95,7 @@
 		event.preventDefault();
 		$('#loading').show();
 		$('#contentModal').addClass('lodtime');
-		$('#contentModal').load('<?php echo base_url('admin/modal_kelolaPegawai?id='); echo $value->id; ?>&status=<?php echo $value->status ?>', function(){
+		$('#contentModal').load('<?php echo base_url('admin/modal_kelolaKaryawan?id='); echo $value->id; ?>&status=<?php echo $value->status ?>', function(){
 			$('#loading').hide();
 			$('#contentModal').removeClass('lodtime');
 		});

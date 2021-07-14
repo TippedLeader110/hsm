@@ -1,4 +1,4 @@
-<?php foreach ($dataPegawai as $key => $value): ?>
+<?php foreach ($dataKaryawan as $key => $value): ?>
 	
 <?php endforeach ?>
 <div class="container-fluid" id="contentModal">
@@ -7,7 +7,7 @@
 			
 			<div class="card text-left" style="margin-bottom: 10px;height: 240px;">
 				<div class="card-body">
-					<h5 class="card-title text-center">Profile Pegawai</h5>
+					<h5 class="card-title text-center">Profile Karyawan</h5>
 				    <table>
 						<tr>
 							<td rowspan="4"><img src="https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png" style="max-width: 100px;"></td><td>&nbsp;&nbsp;&nbsp;Nama : <?php echo $value->nama ?></td>
@@ -48,15 +48,15 @@
 			    <div class="card-header" id="headingOne">
 			      <h2 class="mb-0">
 			        <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-			          Edit Pegawai
+			          Edit Karyawan
 			        </button>
 			      </h2>
 			    </div>
 
 			    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
 			      <div class="card-body">
-			        <p class="card-text">Mengganti informasi pribadi pegawai yang bersangkutan.</p>
-				    <a href="#" class="btn btn-warning" id="modal_editPegawai">Edit</a>
+			        <p class="card-text">Mengganti informasi pribadi karyawan yang bersangkutan.</p>
+				    <a href="#" class="btn btn-warning" id="modal_editKaryawan">Edit</a>
 			      </div>
 			    </div>
 			  </div>
@@ -64,18 +64,18 @@
 			    <div class="card-header" id="headingTwo">
 			      <h2 class="mb-0">
 			        <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-			          Status Pegawai
+			          Status Karyawan
 			        </button>
 			      </h2>
 			    </div>
 			    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
 			      <div class="card-body">
-				        <p class="card-text">Mengganti status keanggotaan pegawai.</p>
+				        <p class="card-text">Mengganti status keanggotaan karyawan.</p>
 					    <?php if ($status==1): ?>
-					    	<a href="#" class="btn btn-danger" id="modal_statusPegawai">Nonaktifkan</a>
+					    	<a href="#" class="btn btn-danger" id="modal_statusKaryawan">Nonaktifkan</a>
 					    <?php endif ?>
 					    <?php if ($status!=1): ?>
-					    	<a href="#" class="btn btn-success" id="modal_statusPegawai">Aktifkan</a>
+					    	<a href="#" class="btn btn-success" id="modal_statusKaryawan">Aktifkan</a>
 					    <?php endif ?>
 			      </div>
 			    </div>
@@ -84,14 +84,14 @@
 			    <div class="card-header" id="headingThree">
 			      <h2 class="mb-0">
 			        <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-			          Hapus Pegawai
+			          Hapus Karyawan
 			        </button>
 			      </h2>
 			    </div>
 			    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
 			      <div class="card-body">
-			        <p class="card-text">Menghapus pegawai dari perusahaan.</p>
-				    <a href="#" class="btn btn-danger text-light" id="modal_hapusPegawai">Hapus</a>
+			        <p class="card-text">Menghapus karyawan dari perusahaan.</p>
+				    <a href="#" class="btn btn-danger text-light" id="modal_hapusKaryawan">Hapus</a>
 			      </div>
 			    </div>
 			  </div>
@@ -120,20 +120,20 @@
         });
     }
 
-	$('#modal_editPegawai').click(function(event) {
+	$('#modal_editKaryawan').click(function(event) {
         event.preventDefault();
-        loadPage('modal_editPegawai?id=<?php echo $id ?>');
+        loadPage('modal_editKaryawan?id=<?php echo $id ?>');
     });
 
-    $('#modal_statusPegawai').click(function(event) {
+    $('#modal_statusKaryawan').click(function(event) {
         event.preventDefault();
         $.ajax({
-        	url: '<?php echo base_url('admin/modal_statusPegawai') ?>',
+        	url: '<?php echo base_url('admin/modal_statusKaryawan') ?>',
         	type: 'POST',
         	data: {id: '<?php echo $id ?>'},
         	success: function(event){
         		if (event==1) {
-        			Swal.fire('Berhasil', "Status pegawai berhasil diganti !!!", 'success');
+        			Swal.fire('Berhasil', "Status karyawan berhasil diganti !!!", 'success');
         			$('#modalKelola').modal('hide');
 					$('.modal-backdrop').remove();
 						$('body').removeClass('modal-open');
@@ -142,14 +142,14 @@
 			            // $('#loading').hide();
 			            // $('#contentPage').removeClass('lodtime');
 			        });   
-			  		$('#contentPage').load('<?php echo base_url('Admin/')?>daftarPegawai',function() {
+			  		$('#contentPage').load('<?php echo base_url('Admin/')?>daftarKaryawan',function() {
 			            $('#loading').hide();
 			            $('#contentPage').removeClass('lodtime');
 			            
 			        }); 
         		}
         		else{
-        			Swal.fire('Kesalahan', "Status pegawai gagal diganti !!!", 'error');
+        			Swal.fire('Kesalahan', "Status karyawan gagal diganti !!!", 'error');
         		}
         	},
         	error: function(err){
@@ -159,10 +159,10 @@
         
     });
 
-    $('#modal_hapusPegawai').click(function(event) {
+    $('#modal_hapusKaryawan').click(function(event) {
         event.preventDefault();
         Swal.fire({
-		title: 'Apakah anda ingin menghapus pegawai ini?',
+		title: 'Apakah anda ingin menghapus karyawan ini?',
 		text: "Perubahan tidak dapat diundurkan!",
 		icon: 'warning',
 		showCancelButton: true,
@@ -173,7 +173,7 @@
 		}).then((result) => {
 			if (result.value) {
 			    $.ajax({
-			    	url: '<?php echo base_url('admin/modal_hapusPegawai') ?>',
+			    	url: '<?php echo base_url('admin/modal_hapusKaryawan') ?>',
 			    	type: 'post',
 			    	data:{id  :  '<?php echo $id ?>'},
 			    	success: function(er){
@@ -181,7 +181,7 @@
 							console.log(er);
 							Swal.fire({
 						      title : 'Terkirim !',
-						      text : 'Pegawai berhasil dihapus!!.',
+						      text : 'Karyawan berhasil dihapus!!.',
 						      icon : 'success',
 						      timer: 2000,
   							  timerProgressBar: true
@@ -191,7 +191,7 @@
 						            $('#loading').hide();
 						            $('#contentPage').removeClass('lodtime');
 						        });   
-						  		$('#contentPage').load('<?php echo base_url('Admin/')?>daftarPegawai',function() {
+						  		$('#contentPage').load('<?php echo base_url('Admin/')?>daftarKaryawan',function() {
 						            $('#loading').hide();
 						            $('#contentPage').removeClass('lodtime');
 						            $('#modalKelola').modal('hide');

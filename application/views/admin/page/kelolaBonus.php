@@ -12,7 +12,7 @@
 			<div class="card text-center" style="margin-bottom: 10px">
 				<div class="card-body">
 					<h5 class="card-title">Tambah masa bonus baru</h5>
-				    <p class="card-text">Menambah masa sesi bonus baru kepada pegawai yang ada</p>
+				    <p class="card-text">Menambah masa sesi bonus baru kepada karyawan yang ada</p>
 				    <a href="#" class="btn btn-success" id="tambahBonus"><i class="fas fa-plus"></i>&nbsp;Tambah</a>
 				 </div>
 			</div>
@@ -22,7 +22,7 @@
 		<div class="col-12 col-md-12">
 			<h6>Daftar masa bonus</h6>
 			<div class="table-responsive">
-				<table class="table table-striped table-bordered" id="tablePegawai">
+				<table class="table table-striped table-bordered" id="tableKaryawan">
 					<thead>
 						<th>#</th>
 						<th>Masa Bonus</th>
@@ -67,7 +67,7 @@
 
 <script type="text/javascript">
 	$(document).ready(function () {
-		$('#tablePegawai').DataTable();
+		$('#tableKaryawan').DataTable();
 		$('.dataTables_length').addClass('bs-modal');
 	});
 

@@ -3,7 +3,7 @@
 		<div class="col-12">
 			<h5>Dashboard Admin</h5>
 			<hr>
-			<h6>Daftar Pegawai Tetap</h6>
+			<h6>Daftar Karyawan Tetap</h6>
 			<hr>
 		</div>
 	</div>
@@ -21,7 +21,7 @@
 	<div class="row" style="margin-top: 20px;">
 		<div class="col-12 col-md-12">
 			<div class="table-responsive">
-				<table class="table table-striped table-bordered" id="tablePegawai">
+				<table class="table table-striped table-bordered" id="tableKaryawan">
 					<thead>
 						<th>#</th>
 						<th>ID</th>
@@ -32,7 +32,7 @@
 					</thead>
 					<tbody>
 						<?php $count = 1 ?>
-						<?php foreach ($daftarPegawai as $key => $value) : ?>
+						<?php foreach ($daftarKaryawan as $key => $value) : ?>
 							<tr>
 								<td><?php echo $count;
 									$count++; ?></td>
@@ -71,7 +71,7 @@
 	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h4 class="modal-title">Kelola Detail Pegawai</h4>
+				<h4 class="modal-title">Kelola Detail Karyawan</h4>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
@@ -95,8 +95,8 @@
 	<?php endif ?>
 
 	$(document).ready(function() {
-		$('#tablePegawai').DataTable();
-		var table = $('#tablePegawai').DataTable();
+		$('#tableKaryawan').DataTable();
+		var table = $('#tableKaryawan').DataTable();
 		if (phpPage) {
 			table.page(pageD - 1).draw('page');
 		}
@@ -105,7 +105,7 @@
 
 	function kelola(id, status) {
 		// console.log(stat);
-		$('.modal-body').load('<?php echo base_url('admin/modal_kelolaPegawai?id=') ?>' + id + '&status=' + status);
+		$('.modal-body').load('<?php echo base_url('admin/modal_kelolaKaryawan?id=') ?>' + id + '&status=' + status);
 		$('#modalKelola').modal('show');
 	}
 
@@ -128,6 +128,6 @@
 	$('#tambahKaryawan').click(function(event) {
 		event.preventDefault();
 
-		loadPage("tambahPegawai");
+		loadPage("tambahKaryawan");
 	});
 </script>

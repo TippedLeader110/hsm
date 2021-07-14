@@ -31,10 +31,10 @@
                 </a>
                 <ul class="collapse list-unstyled" id="postSubmenu">
                     <li id="reportSingkatSide" class="bawah">
-                        <a href="#" id="daftarPegawai">Data Karyawan</a>
+                        <a href="#" id="daftarKaryawan">Data Karyawan</a>
                     </li>
                     <li>
-                        <a href="#" id="tambahPegawai">Tambah Karyawan</a>
+                        <a href="#" id="tambahKaryawan">Tambah Karyawan</a>
                     </li>
                     <!-- <li>
                         <a href="#" id="reportTeam">Team</a>

@@ -62,9 +62,9 @@
 
     LoadPageIndex('mainDashboard');
 
-    $('#tambahPegawai').click(function(event) {
+    $('#tambahKaryawan').click(function(event) {
         event.preventDefault();
-        LoadPageIndex('tambahPegawai');
+        LoadPageIndex('tambahKaryawan');
     });
 
     $('#homeMain').click(function(event) {
@@ -77,9 +77,9 @@
         LoadPageIndex('kelolaAkun');
     });
 
-    $('#daftarPegawai').click(function(event) {
+    $('#daftarKaryawan').click(function(event) {
         event.preventDefault();
-        LoadPageIndex('daftarPegawai');
+        LoadPageIndex('daftarKaryawan');
     });
 
     $('#kelolaBonus').click(function(event) {

@@ -15,10 +15,10 @@
 							<input type="text" hidden name="id" value="<?php echo $this->session->userdata('panitia-id'); ?>">
 							<label class="form-control-label" for="namaP">Nama Admin</label>
 							<input type="text" class="form-control" id="namaP" name="nama">
-								<div class="invalid-feedback">Tolong isi nama Pegawai</div>
+								<div class="invalid-feedback">Tolong isi nama Karyawan</div>
 						</div>
 						<!-- <div class="form-group">
-							<label class="form-control-label" for="deskripsiSeleksi">Deskripsi Pegawai</label>
+							<label class="form-control-label" for="deskripsiSeleksi">Deskripsi Karyawan</label>
 							<textarea name="deskripsi" class="form-control" id="deskripsiSeleksi"></textarea>
 								<div class="invalid-feedback">Tolong isi deskripsi</div>
 						</div> -->
@@ -92,7 +92,7 @@
 		event.preventDefault(); 
 		if (go==true) {
 			$.ajax({
-				url: '<?php echo base_url('admin/prosestambahAdminDirekturPegawai') ?>',
+				url: '<?php echo base_url('admin/prosestambahAdminDirekturKaryawan') ?>',
 				type: 'POST',
 				data:new FormData(this),
 	            processData:false,

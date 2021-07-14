@@ -3,7 +3,7 @@
 		<div class="col-12">
 			<h5>Dashboard Admin</h5>
 			<hr>
-			<h6>Daftar Pegawai Tetap</h6>
+			<h6>Daftar Kriteria pada Sistem</h6>
 			<hr>
 		</div>
 	</div>
@@ -21,7 +21,7 @@
 	<div class="row" style="margin-top: 0px;">
 		<div class="col-12 col-md-12">
 			<div class="table-responsive">
-				<table class="table table-striped table-bordered" id="tablePegawai">
+				<table class="table table-striped table-bordered" id="tableKaryawan">
 					<thead>
 						<th>#</th>
 						<th>ID</th>
@@ -72,7 +72,7 @@
 	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h4 class="modal-title">Kelola Detail Pegawai</h4>
+				<h4 class="modal-title">Kelola Detail Karyawan</h4>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
@@ -89,7 +89,7 @@
 
 <script type="text/javascript">
 	$(document).ready(function() {
-		$('#tablePegawai').DataTable();
+		$('#tableKaryawan').DataTable();
 		$('.dataTables_length').addClass('bs-modal');
 	});
 

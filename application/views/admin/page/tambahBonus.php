@@ -14,7 +14,7 @@
 						<div class="form-group">
 							<label class="form-control-label" for="namaP">Nama Bonus</label>
 							<input type="text" class="form-control" id="nama" name="nama">
-								<div class="invalid-feedback">Tolong isi nama Pegawai</div>
+								<div class="invalid-feedback">Tolong isi nama Karyawan</div>
 						</div>
 					</div>
 					<input type="text" value="1" name="level" hidden>

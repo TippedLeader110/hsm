@@ -51,7 +51,7 @@ class Admin extends CI_Controller {
 	public function kelolaBonus()
 	{
 		$this->loginProtocol();
-		$data['jpegawai'] = $this->Admin_model->hitungDB('pegawai');
+		$data['jkaryawan'] = $this->Admin_model->hitungDB('karyawan');
 		$data['daftarBonus'] = $this->Admin_model->getDB('sesi_bonus');
 		$this->load->view('admin/page/kelolaBonus', $data);	
 	}
@@ -63,10 +63,10 @@ class Admin extends CI_Controller {
 	}
 
 
-	public function tambahPegawai()
+	public function tambahKaryawan()
 	{
 		$this->loginProtocol();
-		$this->load->view('admin/page/tambahPegawai');	
+		$this->load->view('admin/page/tambahKaryawan');	
 	}
 
 	public function tambahKriteria()
@@ -90,24 +90,24 @@ class Admin extends CI_Controller {
 	}	
 
 
-	public function modal_kelolaPegawai()
+	public function modal_kelolaKaryawan()
 	{
 		$this->loginProtocol();
 		$id = $this->input->get('id');
 		$data['id'] = $id;
 		$data['status'] = $this->input->get('status');
 
-		$data['dataPegawai'] = $this->Admin_model->getDBSearch('pegawai','id',$id);
+		$data['dataKaryawan'] = $this->Admin_model->getDBSearch('karyawan','id',$id);
 
-		$this->load->view('admin/page/subpage/modal_kelolaPegawai', $data);
+		$this->load->view('admin/page/subpage/modal_kelolaKaryawan', $data);
 	}
 
 
-	public function modal_hapusPegawai()
+	public function modal_hapusKaryawan()
 	{
 		$this->loginProtocol();
 		$id = $this->input->post('id');
-		if ($this->Admin_model->dbDelete('pegawai','id',$id)==TRUE) {
+		if ($this->Admin_model->dbDelete('karyawan','id',$id)==TRUE) {
 			echo "1";
 		}
 		else{
@@ -115,11 +115,11 @@ class Admin extends CI_Controller {
 		}
 	}
 
-	public function modal_statusPegawai()
+	public function modal_statusKaryawan()
 	{
 		$this->loginProtocol();
 		$id = $this->input->post('id');
-		if ($this->Admin_model->gantiStatuspegawai($id)==TRUE) {
+		if ($this->Admin_model->gantiStatuskaryawan($id)==TRUE) {
 			echo "1";
 		}
 		else{
@@ -127,18 +127,18 @@ class Admin extends CI_Controller {
 		}
 	}
 
-	public function modal_editPegawai()
+	public function modal_editKaryawan()
 	{
 		$this->loginProtocol();
 		$id = $this->input->get('id');
-		$data['dataPegawai'] = $this->Admin_model->getDBSearch('pegawai','id',$id);
-		$this->load->view('admin/page/subpage/modal_editPegawai', $data);	
+		$data['dataKaryawan'] = $this->Admin_model->getDBSearch('karyawan','id',$id);
+		$this->load->view('admin/page/subpage/modal_editKaryawan', $data);	
 	}
-	public function daftarPegawai()
+	public function daftarKaryawan()
 	{
 		$this->loginProtocol();
-		$data ['daftarPegawai'] = $this->Admin_model->getDB('pegawai');
-		$this->load->view('admin/page/daftarPegawai', $data);
+		$data ['daftarKaryawan'] = $this->Admin_model->getDB('karyawan');
+		$this->load->view('admin/page/daftarKaryawan', $data);
 	}
 
 
@@ -165,10 +165,10 @@ class Admin extends CI_Controller {
 		$this->load->view('admin/page/tambahAdmin');
 	}
 
-	public function tambahAkunPegawai()
+	public function tambahAkunKaryawan()
 	{
 		$this->loginProtocol();
-		$this->load->view('admin/page/tambahAkunPegawai');
+		$this->load->view('admin/page/tambahAkunKaryawan');
 	}
 
 	public function editNilai(){
@@ -198,8 +198,8 @@ class Admin extends CI_Controller {
 			$data['rowNilai'] = json_encode($rowNilai);
 			$data['namaSesi'] = $this->db->where('status', '1')->get('sesi_bonus')->row()->nama;
 
-			$data['DPegawai'] = json_encode($this->Admin_model->getDBSearch('bonus_pegawai', 'id_bonus', $idBonus));
-			$data['NPegawai'] = json_encode($this->Admin_model->getDB('pegawai'));
+			$data['DKaryawan'] = json_encode($this->Admin_model->getDBSearch('bonus_karyawan', 'id_bonus', $idBonus));
+			$data['NKaryawan'] = json_encode($this->Admin_model->getDB('karyawan'));
 			$data['idB'] = $idBonus;
 
 
@@ -218,8 +218,8 @@ class Admin extends CI_Controller {
 			$data['rowNilai'] = json_encode($rowNilai);
 			$data['namaSesi'] = $this->db->where('status', '1')->get('sesi_bonus')->row()->nama;
 
-			$data['DPegawai'] = json_encode($this->Admin_model->getDBSearch('bonus_pegawai', 'id_bonus', $idBonus));
-			$data['NPegawai'] = json_encode($this->Admin_model->getDB('pegawai'));
+			$data['DKaryawan'] = json_encode($this->Admin_model->getDBSearch('bonus_karyawan', 'id_bonus', $idBonus));
+			$data['NKaryawan'] = json_encode($this->Admin_model->getDB('karyawan'));
 			$data['idB'] = $idBonus;
 
 
@@ -239,8 +239,8 @@ class Admin extends CI_Controller {
 			$data['rowNilai'] = json_encode($rowNilai);
 			$data['namaSesi'] = $this->db->where('status', '1')->get('sesi_bonus')->row()->nama;
 
-			$data['DPegawai'] = json_encode($this->Admin_model->getDBSearch('bonus_pegawai', 'id_bonus', $idBonus));
-			$data['NPegawai'] = json_encode($this->Admin_model->getDB('pegawai'));
+			$data['DKaryawan'] = json_encode($this->Admin_model->getDBSearch('bonus_karyawan', 'id_bonus', $idBonus));
+			$data['NKaryawan'] = json_encode($this->Admin_model->getDB('karyawan'));
 			$data['idB'] = $idBonus;
 
 
@@ -255,7 +255,7 @@ class Admin extends CI_Controller {
 	// 	if ($this->Admin_model->cekSBonus()) {
 
 	// 		$idbonus = $this->db->where('status', '1')->get('sesi_bonus')->row();
-	// 		$data ['daftarPegawai'] = $this->db->query('call daftarNilai('.$idbonus->id.')')->result();
+	// 		$data ['daftarKaryawan'] = $this->db->query('call daftarNilai('.$idbonus->id.')')->result();
 	// 		$data['row'] = $idbonus;
 	// 		$this->load->view('admin/page/bonusNilai', $data);
 	// 	}else{
@@ -350,7 +350,7 @@ class Admin extends CI_Controller {
 		}
 	}
 
-	public function prosestambahPegawai()
+	public function prosestambahKaryawan()
 	{
 		$this->loginProtocol();
 		$nama = $this->input->post('nama');
@@ -366,7 +366,7 @@ class Admin extends CI_Controller {
 		);
 
 
-        if ($this->Admin_model->tambahData($data, 'pegawai')==TRUE) {
+        if ($this->Admin_model->tambahData($data, 'karyawan')==TRUE) {
 			echo "1";
 		}
 		else{
@@ -374,7 +374,7 @@ class Admin extends CI_Controller {
 		}
 	}
 
-	public function proseseditPegawai()
+	public function proseseditKaryawan()
 	{
 		$this->loginProtocol();
 		$id_p = $this->input->post('id_p');
@@ -391,7 +391,7 @@ class Admin extends CI_Controller {
 			'nohp' => $nohp
 		);
 
-        if ($this->Admin_model->editPegawai($dataKirim, $id_p)==TRUE)
+        if ($this->Admin_model->editKaryawan($dataKirim, $id_p)==TRUE)
         {
 				echo "1";
 		}
@@ -415,7 +415,7 @@ class Admin extends CI_Controller {
 		}
 	}
 
-	public function prosestambahAdminDirekturPegawai()
+	public function prosestambahAdminDirekturKaryawan()
 	{
 		$this->loginProtocol();
 		$nama = $this->input->post('nama');

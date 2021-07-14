@@ -11,7 +11,7 @@
 	<div class="row" style="margin-top: 0px;">
 		<div class="col-12 col-md-12">
 			<div class="table-responsive">
-				<table class="table table-striped table-bordered" id="tablePegawai">
+				<table class="table table-striped table-bordered" id="tableKaryawan">
 					<thead id="theadNilai">
 						<th>#</th>
 						<th>ID</th>
@@ -31,7 +31,7 @@
 	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h4 class="modal-title">Kelola Detail Pegawai</h4>
+				<h4 class="modal-title">Kelola Detail Karyawan</h4>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
@@ -72,22 +72,22 @@
 
 	$('#theadNilai tr').append('<th>Hasil</th>');
 
-	var DPegawai = <?php echo $DPegawai ?>;
-	var NPegawai = <?php echo $NPegawai ?>;
-	var FPegawai = [];
+	var DKaryawan = <?php echo $DKaryawan ?>;
+	var NKaryawan = <?php echo $NKaryawan ?>;
+	var FKaryawan = [];
 
-	for (var i = 0; i < NPegawai.length; i++) {
+	for (var i = 0; i < NKaryawan.length; i++) {
 
-		var json = '{"nama" : "' + NPegawai[i].nama + '", "id" : ' + NPegawai[i].id + '';
+		var json = '{"nama" : "' + NKaryawan[i].nama + '", "id" : ' + NKaryawan[i].id + '';
 
 		for (var j = 0; j < rowNilai.length; j++) {
 			var ada = false;
-			for (var DP = 0; DP < DPegawai.length; DP++) {
+			for (var DP = 0; DP < DKaryawan.length; DP++) {
 
-				if (DPegawai[DP].id_kriteria == rowNilai[j].id && DPegawai[DP].id_pegawai == NPegawai[i].id) {
+				if (DKaryawan[DP].id_kriteria == rowNilai[j].id && DKaryawan[DP].id_karyawan == NKaryawan[i].id) {
 
-					json = json + ', "' + DPegawai[DP].id_kriteria + '"';
-					json = json + ': "' + DPegawai[DP].nilai + '"';
+					json = json + ', "' + DKaryawan[DP].id_kriteria + '"';
+					json = json + ': "' + DKaryawan[DP].nilai + '"';
 					ada = true;
 
 				}
@@ -102,7 +102,7 @@
 
 		json = json + '}'
 		console.log(json);
-		FPegawai.push(json);
+		FKaryawan.push(json);
 
 	}
 
@@ -113,9 +113,9 @@
 
 	var FPCount = 1;
 
-	for (var i = 0; i < FPegawai.length; i++) {
+	for (var i = 0; i < FKaryawan.length; i++) {
 
-		var pgw = JSON.parse(FPegawai[i]);
+		var pgw = JSON.parse(FKaryawan[i]);
 		console.log(pgw);
 		var pgwkey = Object.keys(pgw);
 
@@ -145,9 +145,9 @@
 
 		FPCount++;
 
-		if (i + 1 == FPegawai.length) {
-			$('#tablePegawai').DataTable();
-			table = $('#tablePegawai').DataTable();
+		if (i + 1 == FKaryawan.length) {
+			$('#tableKaryawan').DataTable();
+			table = $('#tableKaryawan').DataTable();
 			if (phpPage) {
 				table.page(pageD - 1).draw('page');
 			}
@@ -306,7 +306,7 @@
 	hitungNormalisasi();
 	hitungNilaiTotal();
 
-	// $('#tbodyNilai tr').append('<td>'+FPCount+'</td><td>'+FPegawai[i].id_pegawai+'</td><td>'+FPegawai[i].nama+'</td><td></td>');
+	// $('#tbodyNilai tr').append('<td>'+FPCount+'</td><td>'+FKaryawan[i].id_karyawan+'</td><td>'+FKaryawan[i].nama+'</td><td></td>');
 
 
 	$(document).ready(function() {});
@@ -397,7 +397,7 @@
 
 	function kelola(id, status) {
 		// console.log(stat);
-		$('.modal-body').load('<?php echo base_url('admin/modal_kelolaPegawai?id=') ?>' + id + '&status=' + status);
+		$('.modal-body').load('<?php echo base_url('admin/modal_kelolaKaryawan?id=') ?>' + id + '&status=' + status);
 		$('#modalKelola').modal('show');
 	}
 </script>

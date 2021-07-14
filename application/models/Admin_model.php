@@ -52,25 +52,25 @@ class Admin_model extends CI_Model {
 		// echo "DD".$idb;
 		foreach ($data as $key => $value) {
 			$this->db->where('id_bonus', $idb);
-			$this->db->where('id_pegawai', $value->id_u);
+			$this->db->where('id_karyawan', $value->id_u);
 			$this->db->where('id_kriteria', $value->id_k);
-			$row = $this->db->get('bonus_pegawai')->num_rows();
+			$row = $this->db->get('bonus_karyawan')->num_rows();
 
 			// var_dump($row);
 
-			$dataINS = array('id_pegawai' => $value->id_u,
+			$dataINS = array('id_karyawan' => $value->id_u,
 					'id_bonus' => $idb,
 					'id_kriteria' => $value->id_k,
 					'nilai' => $value->nilai
 				 );
 
 			if ($row==0) {	
-				$this->db->insert('bonus_pegawai', $dataINS);
+				$this->db->insert('bonus_karyawan', $dataINS);
 			}else{
 				$this->db->where('id_bonus', $idb);
-				$this->db->where('id_pegawai', $id);
+				$this->db->where('id_karyawan', $id);
 				$this->db->where('id_kriteria', $value->id_k);
-				$this->db->update('bonus_pegawai', $dataINS);
+				$this->db->update('bonus_karyawan', $dataINS);
 			}
 		}
 		return true;
@@ -88,16 +88,16 @@ class Admin_model extends CI_Model {
 	}
 
 
-	public function gantiStatusPegawai($id)
+	public function gantiStatusKaryawan($id)
 	{
-		$stat = $this->db->where('id', $id)->get('pegawai')->row()->status;
+		$stat = $this->db->where('id', $id)->get('karyawan')->row()->status;
 		if ($stat==1) {
 			$this->db->set('status', 0);
 		}
 		else{
 			$this->db->set('status', 1);	
 		}
-		if ($this->db->where('id', $id)->update('pegawai')) {
+		if ($this->db->where('id', $id)->update('karyawan')) {
 			return TRUE;
 		}
 		else{
@@ -189,10 +189,10 @@ class Admin_model extends CI_Model {
 		return $this->db->get($db)->num_rows();
 	}
 
-	public function editPegawai($data, $id_p)
+	public function editKaryawan($data, $id_p)
 	{
 		$this->db->where('id', $id_p);
-		if ($this->db->update('pegawai', $data)) {
+		if ($this->db->update('karyawan', $data)) {
 			return TRUE;
 		}
 		else{
@@ -203,16 +203,16 @@ class Admin_model extends CI_Model {
 
 // create or replace view log_admin_u as select b.id_log, b.ip, b.id_admin, b.waktu, b.status, a.nama, a.username, a.password, a.email, a.level from a_users as a inner join log_admin as b on b.id_admin = a.id
 
-//create or replace view daftar_nilai as select * from nilai_pegawai as b  where id_bonus <> 2 or id_bonus is null and not exists(select * from bonus_pegawai as c where c.id_pegawai = b.id_pegawai)
+//create or replace view daftar_nilai as select * from nilai_karyawan as b  where id_bonus <> 2 or id_bonus is null and not exists(select * from bonus_karyawan as c where c.id_karyawan = b.id_karyawan)
 
 // DELIMITER $$
 // CREATE OR REPLACE PROCEDURE daftarNilai(ID int(10))
 // BEGIN
 
-//     select * from nilai_pegawai as b  
+//     select * from nilai_karyawan as b  
 //     where id_bonus = ID
 //     or id_bonus is null 
-//     and not exists(select * from bonus_pegawai as c where c.id_pegawai = b.id_pegawai);
+//     and not exists(select * from bonus_karyawan as c where c.id_karyawan = b.id_karyawan);
 
 // END$$
 
@@ -223,7 +223,7 @@ class Admin_model extends CI_Model {
 // CREATE OR REPLACE PROCEDURE daftarNilai(ID int(10))
 // BEGIN
 
-// select * from nilai_pegawai as b  where id_bonus = ID or id_bonus is null and not exists(select * from bonus_pegawai as c where c.id_bonus = ID and c.id_pegawai = b.id_pegawai);
+// select * from nilai_karyawan as b  where id_bonus = ID or id_bonus is null and not exists(select * from bonus_karyawan as c where c.id_bonus = ID and c.id_karyawan = b.id_karyawan);
 
 // END$$
 
@@ -234,7 +234,7 @@ class Admin_model extends CI_Model {
 // CREATE OR REPLACE PROCEDURE daftarNilaiH(ID int(10))
 // BEGIN
 
-// select COUNT(*) as count from nilai_pegawai as b  where id_bonus = ID or id_bonus is null and not exists(select * from bonus_pegawai as c where c.id_bonus = ID and c.id_pegawai = b.id_pegawai);
+// select COUNT(*) as count from nilai_karyawan as b  where id_bonus = ID or id_bonus is null and not exists(select * from bonus_karyawan as c where c.id_bonus = ID and c.id_karyawan = b.id_karyawan);
 
 // END$$
 
