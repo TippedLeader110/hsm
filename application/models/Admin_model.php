@@ -241,4 +241,18 @@ class Admin_model extends CI_Model {
 // DELIMITER ;
 
 
+
+// DELIMITER $$
+// CREATE OR REPLACE PROCEDURE daftarNilai(ID int(10))
+// BEGIN
+
+//     select * from nilai_pegawai as b  
+//     where id_bonus = ID
+//     or id_bonus is null 
+//     and not exists(select * from bonus_pegawai as c where c.id_pegawai = b.id_pegawai);
+
+// END$$
+
+// DELIMITER ;
+
 ?>
