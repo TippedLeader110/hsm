@@ -23,25 +23,7 @@ SET time_zone = "+00:00";
 CREATE DATABASE IF NOT EXISTS `hsm` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 USE `hsm`;
 
-DELIMITER $$
---
--- Procedures
---
-DROP PROCEDURE IF EXISTS `daftarNilai`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `daftarNilai` (`ID` INT(10))  BEGIN
 
-select * from nilai_pegawai as b  where id_bonus = ID or id_bonus is null and not exists(select * from bonus_pegawai as c where c.id_bonus = ID and c.id_pegawai = b.id_pegawai);
-
-END$$
-
-DROP PROCEDURE IF EXISTS `daftarNilaiH`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `daftarNilaiH` (`ID` INT(10))  BEGIN
-
-select COUNT(*) as count from nilai_pegawai as b  where id_bonus = ID or id_bonus is null and not exists(select * from bonus_pegawai as c where c.id_bonus = ID and c.id_pegawai = b.id_pegawai);
-
-END$$
-
-DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -158,7 +140,7 @@ CREATE TABLE `karyawan` (
   `nama` text NOT NULL,
   `alamat` text NOT NULL,
   `jenis_kelamin` int(11) NOT NULL COMMENT '0=Perempuan, 1 = Laki Laki',
-  `nohp` text NOT NULL DEFAULT '08123131314',
+  `nohp` text NOT NULL ,
   `status` int(11) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -274,9 +256,6 @@ CREATE TABLE `log_admin_u` (
 -- Stand-in structure for view `nilai_pegawai`
 -- (See below for the actual view)
 --
-DROP VIEW IF EXISTS `nilai_pegawai`;
-CREATE TABLE `nilai_pegawai` (
-);
 
 -- --------------------------------------------------------
 
@@ -329,11 +308,6 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 
 --
 -- Structure for view `nilai_pegawai`
---
-DROP TABLE IF EXISTS `nilai_pegawai`;
-
-DROP VIEW IF EXISTS `nilai_pegawai`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `nilai_pegawai`  AS  select `a`.`id` AS `id_p`,`b`.`id` AS `id`,`b`.`id_pegawai` AS `id_pegawai`,`b`.`id_bonus` AS `id_bonus`,`b`.`c1` AS `c1`,`b`.`c2` AS `c2`,`b`.`c3` AS `c3`,`b`.`c4` AS `c4`,`b`.`c5` AS `c5`,`a`.`nama` AS `nama` from (`pegawai` `a` left join `bonus_pegawai` `b` on(`a`.`id` = `b`.`id_pegawai`)) where `a`.`status` = 1 ;
 
 --
 -- Indexes for dumped tables
@@ -430,17 +404,3 @@ ALTER TABLE `sesi_bonus`
 ALTER TABLE `token_api`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=78;
 
-DELIMITER $$
---
--- Events
---
-DROP EVENT `checkValidToken`$$
-CREATE DEFINER=`root`@`localhost` EVENT `checkValidToken` ON SCHEDULE EVERY '0:30' MINUTE_SECOND STARTS '2020-08-01 00:00:00' ON COMPLETION NOT PRESERVE ENABLE DO DELETE FROM token_api
-WHERE (token_api.expired + INTERVAL 7 DAY) < NOW()$$
-
-DELIMITER ;
-COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
