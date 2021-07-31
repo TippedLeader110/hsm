@@ -189,6 +189,16 @@ class Admin_model extends CI_Model {
 		return $this->db->get($db)->num_rows();
 	}
 
+	public function editData($data, $db, $id, $id_k){
+		$this->db->where($id_k, $id);
+		if ($this->db->update($db, $data)) {
+			return TRUE;
+		}
+		else{
+			return FALSE;
+		}	
+	}
+
 	public function editKaryawan($data, $id_p)
 	{
 		$this->db->where('id', $id_p);

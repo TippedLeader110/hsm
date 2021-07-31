@@ -62,6 +62,16 @@ class Admin extends CI_Controller {
 		$this->load->view('admin/page/tambahBonus');	
 	}
 
+	public function editBonus()
+	{
+		$this->loginProtocol();
+		$id = $this->input->get('id');
+		$dataDB = $this->Admin_model->getDBSearch('sesi_bonus', 'id', $id);
+		$data['edit'] = 1;
+		$data['dataDB'] = $dataDB;
+		$this->load->view('admin/page/tambahBonus', $data);	
+	}
+
 
 	public function tambahKaryawan()
 	{
@@ -73,6 +83,7 @@ class Admin extends CI_Controller {
 	{
 		$data['idBonus'] = $this->Admin_model->AktifBonus();
 		// echo $data['idBonus'];
+		$data["edit"] = false;
 		$this->loginProtocol();
 		$this->load->view('admin/page/tambahKriteria', $data);	
 	}
@@ -87,6 +98,18 @@ class Admin extends CI_Controller {
 		}else{
 			$this->load->view('admin/page/bonusNAktif');
 		}
+	}
+
+	public function modal_kelolaKriteria()
+	{
+		$this->loginProtocol();
+		$id = $this->input->get('id');
+		$data['id'] = $id;
+		$data['edit'] = true;
+
+		$data['dataArray'] = $this->Admin_model->getDBSearch('kriteria','id',$id);
+
+		$this->load->view('admin/page/tambahKriteria', $data);
 	}	
 
 
@@ -108,6 +131,30 @@ class Admin extends CI_Controller {
 		$this->loginProtocol();
 		$id = $this->input->post('id');
 		if ($this->Admin_model->dbDelete('karyawan','id',$id)==TRUE) {
+			echo "1";
+		}
+		else{
+			echo "0";
+		}
+	}
+
+	public function hapusKriteria()
+	{
+		$this->loginProtocol();
+		$id = $this->input->post('id');
+		if ($this->Admin_model->dbDelete('kriteria','id',$id)==TRUE) {
+			echo "1";
+		}
+		else{
+			echo "0";
+		}
+	}
+
+	public function hapusBonus()
+	{
+		$this->loginProtocol();
+		$id = $this->input->post('id');
+		if ($this->Admin_model->dbDelete('sesi_bonus','id',$id)==TRUE) {
 			echo "1";
 		}
 		else{
@@ -324,6 +371,28 @@ class Admin extends CI_Controller {
 		}
 	}
 
+	public function proseseditBonus()
+	{
+		$this->loginProtocol();
+		$nama = $this->input->post('nama');
+		$mulai = $this->input->post('mulai');
+		$akhir = $this->input->post('akhir');
+		$id = $this->input->post('id');
+
+		$data = array(
+			'nama' => $nama,
+			'mulai' => $mulai,
+			'akhir' => $akhir
+		);
+
+        if ($this->Admin_model->editData($data, 'sesi_bonus', $id,'id')==TRUE) {
+			echo "1";
+		}
+		else{
+			echo "0";
+		}
+	}
+
 	public function prosestambahKriteria()
 	{
 		$this->loginProtocol();
@@ -332,6 +401,8 @@ class Admin extends CI_Controller {
 		$jenis = $this->input->post('jenis');
 		$minmax = $this->input->post('minmax');
 		$idB = $this->input->post('idBonus');
+
+		$data['edit'] = false;
 
         $data = array(
 			'nama' => $nama,
@@ -343,6 +414,33 @@ class Admin extends CI_Controller {
 
 
         if ($this->Admin_model->tambahData($data, 'kriteria')==TRUE) {
+			echo "1";
+		}
+		else{
+			echo "0";
+		}
+	}
+
+	public function proseseditKriteria()
+	{
+		$this->loginProtocol();
+		$nama = $this->input->post('nama');
+		$bobot = $this->input->post('bobot');
+		$jenis = $this->input->post('jenis');
+		$minmax = $this->input->post('minmax');
+		$idB = $this->input->post('idBonus');
+
+		$id = $this->input->post('id');
+
+        $data = array(
+			'nama' => $nama,
+			'bobot' => $bobot,
+			'jenis' => $jenis,
+			'minmax' => $minmax
+		);
+
+
+        if ($this->Admin_model->editData($data, 'kriteria', $id,'id')==TRUE) {
 			echo "1";
 		}
 		else{
