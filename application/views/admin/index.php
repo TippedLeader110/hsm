@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Dashboard Admin-Pengacara</title>
+    <title>Menu Admin</title>
     <?php $this->load->view('template/headerAdmin') ?>
 </head>
 
