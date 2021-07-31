@@ -30,6 +30,7 @@
 						<th>Penilaian</th>
 						<th>Status</th>
 						<th></th>
+						<th></th>
 					</thead>
 					<tbody>
 						<?php $count = 1 ?>
@@ -54,6 +55,9 @@
 									<?php if ($value->status!=1): ?>
 										<button onclick="statusBonus(<?php echo $value->id ?>,1)" id="ak" class="btn btn-success">Aktifkan</button>
 									<?php endif ?>
+								</td>
+								<td>
+									<button type="button" onclick="editBonus(<?php echo $value->id ?>)" class="btn btn-warning">Edit</button>
 								</td>
 							</tr>
 						<?php endforeach ?>
@@ -110,6 +114,14 @@
 	            		Swal.fire('Kesalahan!!', 'Terjadi kesalahan dengan pesan error : ['+data+']');
     			
     	});
+    }
+
+	function editBonus(id){
+    	loadTime();
+        $('#contentPage').load('<?php echo base_url('Admin/editBonus?id=')?>' + id,function() {
+            $('#loading').hide();
+            $('#contentPage').removeClass('lodtime');
+        });
     }
 
 

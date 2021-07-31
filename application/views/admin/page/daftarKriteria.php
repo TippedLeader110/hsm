@@ -35,8 +35,8 @@
 						<?php foreach ($daftarKriteria as $key => $value) : ?>
 							<tr>
 								<td><?php echo $count;
-									$count++; ?></td>
-								<td>C<?php echo $value->id ?></td>
+									?></td>
+								<td>C<?php echo $count; $count++;  ?></td>
 								<td><?php echo $value->nama; ?></td>
 								<td>
 									<?php echo $value->bobot ?>
